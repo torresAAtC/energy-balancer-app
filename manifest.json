@@ -1,0 +1,16 @@
+{
+  "name": "EnergyBalancer",
+  "short_name": "EnergyBalancer",
+  "description": "Balance de consumo eléctrico del hogar con tarifa cubana",
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#2E7D32",
+  "background_color": "#ffffff",
+  "icons": [
+    {
+      "src": "https://cdn.jsdelivr.net/npm/material-icons@1.13.12/iconfont/material-icons.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml"
+    }
+  ]
+}

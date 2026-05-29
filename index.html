@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#2E7D32">
+    <title>EnergyBalancer - Balance Energético del Hogar</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="manifest" href="manifest.json">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>
+                <span class="material-icons">bolt</span>
+                EnergyBalancer
+            </h1>
+            <p class="subtitle">Balance de consumo eléctrico de tu hogar</p>
+        </header>
+
+        <!-- Formulario de búsqueda de equipos -->
+        <div class="card search-card">
+            <h2>Agregar electrodoméstico</h2>
+            <div class="search-box">
+                <input type="text" id="brandInput" placeholder="Marca (ej: LG, Samsung, Whirlpool)" class="input-field">
+                <input type="text" id="modelInput" placeholder="Modelo (opcional)" class="input-field">
+                <button id="searchBtn" class="btn btn-primary">
+                    <span class="material-icons">search</span>
+                    Buscar consumo
+                </button>
+            </div>
+            
+            <div id="suggestions" class="suggestions"></div>
+            <div id="searchResults" class="search-results"></div>
+        </div>
+
+        <!-- Formulario manual -->
+        <div class="card manual-card">
+            <button id="toggleManualBtn" class="btn-toggle">
+                <span class="material-icons">expand_more</span>
+                Ingresar consumo manualmente
+            </button>
+            <div id="manualForm" class="manual-form hidden">
+                <input type="text" id="manualBrand" placeholder="Marca" class="input-field">
+                <input type="text" id="manualModel" placeholder="Modelo" class="input-field">
+                <input type="number" id="manualWatts" placeholder="Consumo en Watts" class="input-field" step="any">
+                <select id="manualCategory" class="input-field">
+                    <option value="refrigerator">Refrigerador/Congelador</option>
+                    <option value="washing">Lavadora</option>
+                    <option value="dryer">Secadora</option>
+                    <option value="dishwasher">Lavavajillas</option>
+                    <option value="tv">Televisor</option>
+                    <option value="computer">Computadora</option>
+                    <option value="lighting">Iluminación</option>
+                    <option value="other">Otro</option>
+                </select>
+                <input type="number" id="manualHours" placeholder="Horas de uso por día" class="input-field" value="1" step="0.5">
+                <button id="addManualBtn" class="btn btn-secondary">Agregar manualmente</button>
+            </div>
+        </div>
+
+        <!-- Lista de equipos -->
+        <div class="card devices-card">
+            <h2>Mis equipos</h2>
+            <div id="devicesList" class="devices-list">
+                <div class="empty-state">
+                    <span class="material-icons">devices</span>
+                    <p>No hay equipos agregados. Busca o añade manualmente.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Balance total -->
+        <div class="card balance-card">
+            <h2>Balance del hogar</h2>
+            <div class="balance-stats">
+                <div class="stat">
+                    <span class="stat-label">Potencia total simultánea</span>
+                    <span class="stat-value" id="totalWatts">0</span>
+                    <span class="stat-unit">Watts</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-label">Consumo diario estimado</span>
+                    <span class="stat-value" id="totalDailyKWh">0.00</span>
+                    <span class="stat-unit">kWh/día</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-label">Consumo mensual estimado</span>
+                    <span class="stat-value" id="totalMonthlyKWh">0.00</span>
+                    <span class="stat-unit">kWh/mes</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-label">Costo mensual estimado</span>
+                    <span class="stat-value" id="totalCost">0.00</span>
+                    <span class="stat-unit">pesos/mes</span>
+                </div>
+            </div>
+            <div class="cost-note">
+                *Calculado con tarifa eléctrica cubana progresiva por rangos de consumo
+            </div>
+        </div>
+
+        <!-- Botones de acción -->
+        <div class="export-section">
+            <button id="exportBtn" class="btn btn-outline">
+                <span class="material-icons">file_download</span>
+                Exportar balance (CSV)
+            </button>
+            <button id="clearAllBtn" class="btn btn-danger">
+                <span class="material-icons">delete_sweep</span>
+                Limpiar todo
+            </button>
+        </div>
+    </div>
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    
+    <script src="firebase-config.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
