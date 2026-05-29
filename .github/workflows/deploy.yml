@@ -3,6 +3,7 @@ name: Deploy to Firebase Hosting
 on:
   push:
     branches:
+      - main
       - master
 
 jobs:
@@ -11,6 +12,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       
+      - name: List files in repository
+        run: |
+          echo "=== Archivos en la raíz ==="
+          ls -la
+          echo "=== Archivos en .github ==="
+          ls -la .github/ || echo "No .github folder"
+          
       - name: Deploy to Firebase
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
@@ -18,3 +26,4 @@ jobs:
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}'
           channelId: live
           projectId: energy-balancer-app
+          entryPoint: '.'
